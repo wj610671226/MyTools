@@ -2,8 +2,8 @@
 //  NSString+Hash.m
 //  01-数据安全
 //
-//  Created by 刘天源 on 14/11/12.
-//  Copyright (c) 2014年 itcast. All rights reserved.
+//  Created by h on 15/11/12.
+//  Copyright (c) 2015年 tanzhou. All rights reserved.
 //
 
 #import "NSString+Hash.h"
@@ -14,7 +14,7 @@
 #pragma mark - 散列函数
 - (NSString *)md5String {
     const char *str = self.UTF8String;
-    unsigned char buffer[CC_MD5_DIGEST_LENGTH];
+    uint8_t buffer[CC_MD5_DIGEST_LENGTH];
     
     CC_MD5(str, (CC_LONG)strlen(str), buffer);
     
@@ -23,7 +23,7 @@
 
 - (NSString *)sha1String {
     const char *str = self.UTF8String;
-    unsigned char buffer[CC_SHA1_DIGEST_LENGTH];
+    uint8_t buffer[CC_SHA1_DIGEST_LENGTH];
     
     CC_SHA1(str, (CC_LONG)strlen(str), buffer);
     
@@ -32,7 +32,7 @@
 
 - (NSString *)sha256String {
     const char *str = self.UTF8String;
-    unsigned char buffer[CC_SHA256_DIGEST_LENGTH];
+    uint8_t buffer[CC_SHA256_DIGEST_LENGTH];
     
     CC_SHA256(str, (CC_LONG)strlen(str), buffer);
     
@@ -41,7 +41,7 @@
 
 - (NSString *)sha512String {
     const char *str = self.UTF8String;
-    unsigned char buffer[CC_SHA512_DIGEST_LENGTH];
+    uint8_t buffer[CC_SHA512_DIGEST_LENGTH];
     
     CC_SHA512(str, (CC_LONG)strlen(str), buffer);
     
@@ -52,7 +52,7 @@
 - (NSString *)hmacMD5StringWithKey:(NSString *)key {
     const char *keyData = key.UTF8String;
     const char *strData = self.UTF8String;
-    unsigned char buffer[CC_MD5_DIGEST_LENGTH];
+    uint8_t buffer[CC_MD5_DIGEST_LENGTH];
     
     CCHmac(kCCHmacAlgMD5, keyData, strlen(keyData), strData, strlen(strData), buffer);
     
@@ -62,7 +62,7 @@
 - (NSString *)hmacSHA1StringWithKey:(NSString *)key {
     const char *keyData = key.UTF8String;
     const char *strData = self.UTF8String;
-    unsigned char buffer[CC_SHA1_DIGEST_LENGTH];
+    uint8_t buffer[CC_SHA1_DIGEST_LENGTH];
     
     CCHmac(kCCHmacAlgSHA1, keyData, strlen(keyData), strData, strlen(strData), buffer);
     
@@ -72,7 +72,7 @@
 - (NSString *)hmacSHA256StringWithKey:(NSString *)key {
     const char *keyData = key.UTF8String;
     const char *strData = self.UTF8String;
-    unsigned char buffer[CC_SHA256_DIGEST_LENGTH];
+    uint8_t buffer[CC_SHA256_DIGEST_LENGTH];
     
     CCHmac(kCCHmacAlgSHA256, keyData, strlen(keyData), strData, strlen(strData), buffer);
     
@@ -82,7 +82,7 @@
 - (NSString *)hmacSHA512StringWithKey:(NSString *)key {
     const char *keyData = key.UTF8String;
     const char *strData = self.UTF8String;
-    unsigned char buffer[CC_SHA512_DIGEST_LENGTH];
+    uint8_t buffer[CC_SHA512_DIGEST_LENGTH];
     
     CCHmac(kCCHmacAlgSHA512, keyData, strlen(keyData), strData, strlen(strData), buffer);
     
@@ -115,7 +115,7 @@
     }
     [fp closeFile];
     
-    unsigned char buffer[CC_MD5_DIGEST_LENGTH];
+    uint8_t buffer[CC_MD5_DIGEST_LENGTH];
     CC_MD5_Final(buffer, &hashCtx);
     
     return [self stringFromBytes:buffer length:CC_MD5_DIGEST_LENGTH];
@@ -143,7 +143,7 @@
     }
     [fp closeFile];
     
-    unsigned char buffer[CC_SHA1_DIGEST_LENGTH];
+    uint8_t buffer[CC_SHA1_DIGEST_LENGTH];
     CC_SHA1_Final(buffer, &hashCtx);
     
     return [self stringFromBytes:buffer length:CC_SHA1_DIGEST_LENGTH];
@@ -171,7 +171,7 @@
     }
     [fp closeFile];
     
-    unsigned char buffer[CC_SHA256_DIGEST_LENGTH];
+    uint8_t buffer[CC_SHA256_DIGEST_LENGTH];
     CC_SHA256_Final(buffer, &hashCtx);
     
     return [self stringFromBytes:buffer length:CC_SHA256_DIGEST_LENGTH];
@@ -199,7 +199,7 @@
     }
     [fp closeFile];
     
-    unsigned char buffer[CC_SHA512_DIGEST_LENGTH];
+    uint8_t buffer[CC_SHA512_DIGEST_LENGTH];
     CC_SHA512_Final(buffer, &hashCtx);
     
     return [self stringFromBytes:buffer length:CC_SHA512_DIGEST_LENGTH];
@@ -214,7 +214,7 @@
  *
  *  @return 字符串表示形式
  */
-- (NSString *)stringFromBytes:(unsigned char *)bytes length:(int)length {
+- (NSString *)stringFromBytes:(uint8_t *)bytes length:(int)length {
     NSMutableString *strM = [NSMutableString string];
     
     for (int i = 0; i < length; i++) {

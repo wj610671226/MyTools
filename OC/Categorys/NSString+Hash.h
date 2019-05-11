@@ -2,8 +2,8 @@
 //  NSString+Hash.h
 //  01-数据安全
 //
-//  Created by 刘天源 on 14/11/12.
-//  Copyright (c) 2014年 itcast. All rights reserved.
+//  Created by h on 15/11/12.
+//  Copyright (c) 2015年 tanzhou. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
