@@ -12,11 +12,11 @@ import ObjectMapper
 import Alamofire
 import AlamofireObjectMapper
 
-protocol NetWorkingTool {
+protocol NetWorkingToolToModel {
     
 }
 
-extension NetWorkingTool {
+extension NetWorkingToolToModel {
     
     /**
      获取服务器数据，并转化为模型（对AlamofireObjectMapper进一步封装）
@@ -48,14 +48,13 @@ extension NetWorkingTool {
      - parameter errorBlock:   失败回调
      */
     func alRequestGetDataFormServersCallbackArray<T: Mappable>(url: String, params:[String: String]? = nil, keyPath: String? = nil, successBlock: @escaping (_ result: [T]) -> Void, errorBlock: @escaping (_ error: Error) -> Void) {
-        
-        Alamofire.request(url, method: .post, parameters: params).responseArray(keyPath: keyPath) { (response: DataResponse<[T]>) in
-            if let err = response.result.error {
-                errorBlock(err)
-            } else {
-                successBlock(response.result.value!)
-            }
-        }
+//        Alamofire.request(url, method: .post, parameters: params).responseArray(keyPath: keyPath) { (response: DataResponse<[T]>) in
+//            if let err = response.result.error {
+//                errorBlock(err)
+//            } else {
+//                successBlock(response.result.value!)
+//            }
+//        }
     }
     
     
@@ -72,7 +71,7 @@ extension NetWorkingTool {
         let manager = AFHTTPSessionManager()
         manager.responseSerializer.acceptableContentTypes = ["text/html", "application/json", "text/json", "text/javascript"]
         
-        manager.post(url, parameters: params, progress: { (progress: Progress) -> Void in
+        manager.post(url, parameters: params, headers: nil, progress: { (progress: Progress) -> Void in
             print("progress = \(progress)")
             }, success: { (task: URLSessionDataTask, responseObject: Any?) -> Void in
                 print("responseObject = \(responseObject)")
@@ -105,7 +104,7 @@ extension NetWorkingTool {
         let manager = AFHTTPSessionManager()
         manager.responseSerializer.acceptableContentTypes = ["text/html", "application/json", "text/json", "text/javascript"]
         
-        manager.post(url, parameters: params, progress: { (progress: Progress) -> Void in
+        manager.post(url, parameters: params, headers: nil, progress: { (progress: Progress) -> Void in
             print("progress = \(progress)")
             }, success: { (task: URLSessionDataTask, responseObject: Any?) -> Void in
                 

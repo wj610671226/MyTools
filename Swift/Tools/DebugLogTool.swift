@@ -8,11 +8,11 @@
 
 import UIKit
 
-class DebugLogTool: NSObject {
+class DebugLog {
     /**
      自定义log   需要在Build Setting  -->  Other Swift Flags --> Debug 设置 -D DEBUG
      */
-    static func debugLog(item: Any) {
+    static func info(_ item: Any) {
         #if DEBUG
             print(item)
         #else

@@ -23,44 +23,44 @@ protocol PickerImageTool: UINavigationControllerDelegate, UIImagePickerControlle
 extension PickerImageTool where Self: UIViewController {
     func pickerImage() {
         let actionSheet = UIActionSheet(title:"请选择", delegate: self, cancelButtonTitle: "取消", destructiveButtonTitle: pickType.PhotoLibrary.rawValue, otherButtonTitles: pickType.Camera.rawValue)
-        actionSheet.showInView(view)
+        actionSheet.show(in: view)
     }
     
     // 打开相机
     func openCameraCompetence() {
-        if UIImagePickerController.isSourceTypeAvailable(.Camera) {
+        if UIImagePickerController.isSourceTypeAvailable(.camera) {
             if isOpenCamera() {
                 let imagePicker = UIImagePickerController()
                 imagePicker.delegate = self
                 imagePicker.allowsEditing = true
-                imagePicker.sourceType = .Camera;
+                imagePicker.sourceType = .camera;
                 // 设置前置摄像头
-                imagePicker.cameraDevice = .Front
-                presentViewController(imagePicker, animated: true, completion: nil)
+                imagePicker.cameraDevice = .front
+                present(imagePicker, animated: true, completion: nil)
             }
         }
     }
     
     // 打开相册
     func openPhotoLibraryCompetence() {
-        if UIImagePickerController.isSourceTypeAvailable(.PhotoLibrary) {
+        if UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
             if isOpenCamera() {
                 // 系统相册
                 let imagePicker = UIImagePickerController()
                 imagePicker.delegate = self
                 imagePicker.allowsEditing = true
-                imagePicker.sourceType = .PhotoLibrary
+                imagePicker.sourceType = .photoLibrary
 //                imagePicker.mediaTypes = @[mediaType[0],mediaType[1]];
-                presentViewController(imagePicker, animated: true, completion: nil)
+                present(imagePicker, animated: true, completion: nil)
             }
         }
     }
 
     // 判断是否有访问相机的权限
     func isOpenCamera() -> Bool {
-        let authStatus = AVCaptureDevice.authorizationStatusForMediaType(AVMediaTypeVideo)
-        if authStatus == AVAuthorizationStatus.Denied || authStatus == AVAuthorizationStatus.Restricted {
-            let message = "请在iPhone的“设置-隐私-相机”选项中，允许“\(NSBundle.mainBundle().infoDictionary!["CFBundleName"]!)”访问你的相机"
+        let authStatus = AVCaptureDevice.authorizationStatus(for: AVMediaType.video)
+        if authStatus == AVAuthorizationStatus.denied || authStatus == AVAuthorizationStatus.restricted {
+            let message = "请在iPhone的“设置-隐私-相机”选项中，允许“\(Bundle.main.infoDictionary!["CFBundleName"]!)”访问你的相机"
             let alertView = UIAlertView(title: "温馨提示", message: message, delegate: nil, cancelButtonTitle: "确定")
             alertView.show()
             return false

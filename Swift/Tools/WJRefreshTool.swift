@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MJRefresh
 
 protocol WJRefresh {
     func addRefreshing(tableView: UITableView, target: AnyObject, refreshingAction: Selector)
@@ -17,11 +18,11 @@ extension WJRefresh {
     func addRefreshing(tableView: UITableView, target: AnyObject, refreshingAction: Selector) {
         tableView.mj_header = MJRefreshNormalHeader(refreshingTarget: target, refreshingAction: refreshingAction)
         tableView.mj_footer = MJRefreshBackFooter(refreshingTarget: target, refreshingAction: refreshingAction)
-        tableView.mj_header.beginRefreshing()
+        tableView.mj_header?.beginRefreshing()
     }
     
     func endRefreshing(tableView: UITableView) {
-        tableView.mj_footer.endRefreshing()
-        tableView.mj_header.endRefreshing()
+        tableView.mj_footer?.endRefreshing()
+        tableView.mj_header?.endRefreshing()
     }
 }

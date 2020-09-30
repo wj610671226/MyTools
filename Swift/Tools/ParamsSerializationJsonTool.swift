@@ -16,16 +16,16 @@ protocol ParamsSerializationJsonTool {
      
      - returns: JSON格式的字符串
      */
-    func paramsSerializationJson(param: AnyObject) -> String
+    func paramsSerializationJson(param: Any) -> String
 }
 
 
 extension ParamsSerializationJsonTool {
     // 把参数转化为JOSN格式的字符串
-    func paramsSerializationJson(param: AnyObject) -> String {
+    func paramsSerializationJson(param: Any) -> String {
         do {
-            let data = try NSJSONSerialization.dataWithJSONObject(param, options: NSJSONWritingOptions.PrettyPrinted)
-            let paramString = String.init(data: data, encoding: NSUTF8StringEncoding)
+            let data = try JSONSerialization.data(withJSONObject: param, options: JSONSerialization.WritingOptions.prettyPrinted)
+            let paramString = String.init(data: data, encoding: String.Encoding.utf8)
             return paramString!
         } catch let error {
             print("paramsSerializationJson --> error = \(error)")
